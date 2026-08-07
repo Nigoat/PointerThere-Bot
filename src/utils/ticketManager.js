@@ -1,3 +1,8 @@
+/*
+ * PointerThere Discord Bot
+ * Copyright (C) 2024 PointerThere — GPLv3
+ */
+
 import { ChannelType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { config } from "../config.js";
 
@@ -5,7 +10,6 @@ export async function createTicket(interaction, categoryType) {
   const guild = interaction.guild;
   const user = interaction.user;
 
-  // Check existing channel
   const channelName = `ticket-${user.username.toLowerCase().replace(/[^a-z0-9]/g, "")}`;
   const existing = guild.channels.cache.find(c => c.name === channelName);
   if (existing) {
@@ -15,10 +19,9 @@ export async function createTicket(interaction, categoryType) {
     });
   }
 
-  // Permission overwrites
   const permissionOverwrites = [
     {
-      id: guild.id, // @everyone
+      id: guild.id,
       deny: [PermissionFlagsBits.ViewChannel],
     },
     {

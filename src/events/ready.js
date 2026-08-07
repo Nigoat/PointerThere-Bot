@@ -1,3 +1,8 @@
+/*
+ * PointerThere Discord Bot
+ * Copyright (C) 2024 PointerThere — GPLv3
+ */
+
 import { ActivityType } from "discord.js";
 
 export default {

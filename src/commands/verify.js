@@ -1,3 +1,8 @@
+/*
+ * PointerThere Discord Bot
+ * Copyright (C) 2024 PointerThere — GPLv3
+ */
+
 import { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import { config } from "../config.js";
 

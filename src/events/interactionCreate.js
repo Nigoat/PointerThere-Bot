@@ -1,3 +1,8 @@
+/*
+ * PointerThere Discord Bot
+ * Copyright (C) 2024 PointerThere — GPLv3
+ */
+
 import { createTicket, claimTicket, closeTicket } from "../utils/ticketManager.js";
 import { fetchUserStats } from "../utils/api.js";
 import { config } from "../config.js";
@@ -5,7 +10,6 @@ import { config } from "../config.js";
 export default {
   name: "interactionCreate",
   async execute(interaction, client) {
-    // Slash commands
     if (interaction.isChatInputCommand()) {
       const command = client.commands.get(interaction.commandName);
       if (!command) return;
@@ -24,7 +28,6 @@ export default {
       return;
     }
 
-    // Select Menus (Ticket creation category picker)
     if (interaction.isStringSelectMenu()) {
       if (interaction.customId === "select_ticket_category") {
         const category = interaction.values[0];
@@ -33,7 +36,6 @@ export default {
       return;
     }
 
-    // Buttons
     if (interaction.isButton()) {
       if (interaction.customId === "claim_ticket") {
         await claimTicket(interaction);
