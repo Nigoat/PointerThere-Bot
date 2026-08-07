@@ -1,6 +1,6 @@
 /*
  * PointerThere Discord Bot
- * Copyright (C) 2024 PointerThere — GPLv3
+ * Copyright (C) 2026 PointerThere — GPLv3
  */
 
 import { Client, GatewayIntentBits, Collection, REST, Routes } from "discord.js";

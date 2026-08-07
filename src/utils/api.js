@@ -1,6 +1,6 @@
 /*
  * PointerThere Discord Bot
- * Copyright (C) 2024 PointerThere — GPLv3
+ * Copyright (C) 2026 PointerThere — GPLv3
  */
 
 import fetch from "node-fetch";
