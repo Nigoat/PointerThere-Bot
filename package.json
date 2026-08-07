@@ -1,0 +1,26 @@
+{
+  "name": "pointerthere-bot",
+  "version": "1.0.0",
+  "description": "Official Discord Bot for PointerThere Geometry Dash Demon List",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": [
+    "geometry-dash",
+    "pointercrate",
+    "pointerthere",
+    "discord-bot",
+    "ticket-system",
+    "demon-list"
+  ],
+  "author": "PointerThere",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "node-fetch": "^3.3.2"
+  }
+}
