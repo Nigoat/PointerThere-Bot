@@ -41,7 +41,7 @@ export default {
         await claimTicket(interaction);
       } else if (interaction.customId === "close_ticket") {
         await closeTicket(interaction);
-      } else if (interaction.customId === "check_verification") {
+      } else if (interaction.customId === "verify_yourself") {
         await interaction.deferReply({ ephemeral: true });
         const user = await fetchUserStats(interaction.user.username);
         if (user) {

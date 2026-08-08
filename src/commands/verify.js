@@ -3,29 +3,25 @@
  * Copyright (C) 2026 PointerThere — GPLv3
  */
 
-import { SlashCommandBuilder } from "discord.js";
-import { config } from "../config.js";
-import { fetchUserStats } from "../utils/api.js";
+import { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 
 export const data = new SlashCommandBuilder()
   .setName("verify")
-  .setDescription("Verify and link your PointerThere profile");
+  .setDescription("Send the PointerThere verification panel");
 
 export async function execute(interaction) {
-  await interaction.deferReply({ ephemeral: true });
-  const user = await fetchUserStats(interaction.user.username);
+  const embed = new EmbedBuilder()
+    .setColor(0x3fb950)
+    .setTitle("PointerThere Account Verification")
+    .setDescription("Press **Verify** below to link your Discord account and receive the Verified role.");
 
-  if (!user) {
-    await interaction.editReply(
-      `❌ Could not find a linked PointerThere account. Connect Discord in ${config.websiteUrl}/settings, then run \`/verify\` again.`
-    );
-    return;
-  }
+  const row = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setCustomId("verify_yourself")
+      .setLabel("Verify")
+      .setStyle(ButtonStyle.Success)
+      .setEmoji("✅")
+  );
 
-  if (config.verifiedRoleId) {
-    const role = interaction.guild?.roles.cache.get(config.verifiedRoleId);
-    if (role) await interaction.member.roles.add(role);
-  }
-
-  await interaction.editReply(`✅ Verified! Linked to PointerThere profile **${user.username}** (${user.points} pts).`);
+  await interaction.reply({ embeds: [embed], components: [row] });
 }
