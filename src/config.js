@@ -16,4 +16,5 @@ export const config = {
   verifiedRoleId: process.env.VERIFIED_ROLE_ID || "",
   apiUrl: process.env.POINTERTHERE_API_URL || "http://localhost:8080/api",
   websiteUrl: process.env.POINTERTHERE_WEBSITE_URL || "http://localhost:3000",
+  verificationSecret: process.env.BOT_VERIFICATION_SECRET || "",
 };
