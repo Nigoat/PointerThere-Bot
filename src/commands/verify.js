@@ -3,35 +3,29 @@
  * Copyright (C) 2026 PointerThere — GPLv3
  */
 
-import { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
+import { SlashCommandBuilder } from "discord.js";
 import { config } from "../config.js";
+import { fetchUserStats } from "../utils/api.js";
 
 export const data = new SlashCommandBuilder()
   .setName("verify")
-  .setDescription("Link your Discord account with your PointerThere website profile");
+  .setDescription("Verify and link your PointerThere profile");
 
 export async function execute(interaction) {
-  const embed = new EmbedBuilder()
-    .setColor(0x3fb950)
-    .setTitle("🔗 PointerThere Discord Account Verification")
-    .setDescription(
-      `To link your Discord account with PointerThere:\n\n` +
-      `1. Log in to [PointerThere Settings](${config.websiteUrl}/settings)\n` +
-      `2. Click **Connect Discord** under Connected Accounts\n` +
-      `3. Once connected, click the **Check Verification** button below to sync your role.`
+  await interaction.deferReply({ ephemeral: true });
+  const user = await fetchUserStats(interaction.user.username);
+
+  if (!user) {
+    await interaction.editReply(
+      `❌ Could not find a linked PointerThere account. Connect Discord in ${config.websiteUrl}/settings, then run \`/verify\` again.`
     );
+    return;
+  }
 
-  const row = new ActionRowBuilder().addComponents(
-    new ButtonBuilder()
-      .setLabel("Go to Settings")
-      .setStyle(ButtonStyle.Link)
-      .setURL(`${config.websiteUrl}/settings`),
-    new ButtonBuilder()
-      .setCustomId("check_verification")
-      .setLabel("Check Verification")
-      .setStyle(ButtonStyle.Primary)
-      .setEmoji("✅")
-  );
+  if (config.verifiedRoleId) {
+    const role = interaction.guild?.roles.cache.get(config.verifiedRoleId);
+    if (role) await interaction.member.roles.add(role);
+  }
 
-  await interaction.reply({ embeds: [embed], components: [row], ephemeral: true });
+  await interaction.editReply(`✅ Verified! Linked to PointerThere profile **${user.username}** (${user.points} pts).`);
 }
